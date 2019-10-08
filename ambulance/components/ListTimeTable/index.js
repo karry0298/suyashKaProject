@@ -44,7 +44,8 @@ export default class studentNavigation extends Component {
       tumtumNumber:'1',
       rickshawNumber:'1',
       destination:"College",
-      driverContactNo : 9730304944
+      driverContactNo : 9730304944,
+      driver:false
     };
     this.socket = SocketIOClient(`${IPADDR}`);
   }
@@ -55,7 +56,7 @@ export default class studentNavigation extends Component {
     this.socket.on('accept', (msg)=>{
       var findingTumTumMsg = `Mr ${msg.driverId} has accepted your request`
       console.log(msg)
-      this.setState({ accepted : true , 
+      this.setState({ accepted : true , driver:true,
         driverId : msg.driverId, findingTumTumMsg , driverContactNo : msg.contactNo })
     })
 
@@ -136,14 +137,15 @@ handleRickshawPress = () =>{
 {/* ------------------------------------------------Tum   Tum---------------------------------------------------------------------------------------------------- */}
 
         <Dialog
-          onDismiss={() => {this.setState({tumtum:false})}}
+          onDismiss={() => {this.setState({driver:false})}}
           width={0.85}
-          height={0.75}
-          visible={this.state.tumtum}
+          height={0.45}
+          visible={this.state.driver}
           rounded
           actionsBordered
-          onTouchOutside  ={()=>{this.setState({tumtum:false})}}>
-          <View style={{height:"58%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
+          onTouchOutside  ={()=>{this.setState({driver:false})}}>
+          <View>
+          <View style={{height:"88%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
               <View style ={styles.DialogBContainer}>
               
                   <View style={[styles.CircleShapeView]}>
@@ -151,12 +153,13 @@ handleRickshawPress = () =>{
 
                   </View>
               </View>
-              <View>
-                  <Text style={[styles.status]} > Status</Text>
+              <View style={{flexDirection:'row'}}>
+                  <Text style={[styles.status]} > Status:</Text>
+                  <Text style={{fontSize:18,fontWeight:'bold',color:'#000',marginTop:13}}>  Accepted </Text>
               </View>
               {/* { this.state.findingTumTumMsg } */}
               <View style={{alignItems:'center',marginBottom:15}} >
-                  <Text style={{fontSize:18,fontWeight:'bold',color:'#000',marginTop:2}} > { this.state.findingTumTumMsg } </Text>
+                 
                   {
                     this.state.accepted &&
                     <View style={{marginTop:10}} >
@@ -169,49 +172,12 @@ handleRickshawPress = () =>{
 
               </View>
 
-              <View style={{paddingTop:15}}></View>
-
-              
-              <Item floatingLabel style={{ width:250}}>
-                <Label>Enter Destination</Label>
-                <Input  onChangeText={(text) => this.setState({"destination":text})}
-                        value={this.state["destination"]}/>
-              </Item>
-
-
-                <View style={{flexDirection:'row', marginTop:15}}>
-                  <View style={{flex:0.5 , alignItems:'center',paddingTop: 14,}}>
-                    <Text style={{fontSize:18,fontWeight:'bold',color:'#000'}}> No Of People: </Text>
-                  </View>
-
-                  <View style={{flex:0.5 }}>
-                    <Picker
-                      selectedValue={this.state.tumtumNumber}
-                      style={{height: 50, width: 130}}
-                      onValueChange={(itemValue, itemIndex) =>
-                        this.setState({tumtumNumber: itemValue})
-                      }>
-                      <Picker.Item label="One : 1" value="1" />
-                      <Picker.Item label="Two : 2" value="2" />
-                      <Picker.Item label="Three : 3" value="3" />
-                      <Picker.Item label="Four : 4" value="4" />
-                      <Picker.Item label="Five : 5" value="5" />
-                      <Picker.Item label="Six : 6" value="6" />
-                      <Picker.Item label="Seven : 7" value="7" />
-                      <Picker.Item label="Eight : 8" value="8" />
-                      <Picker.Item label="Nine : 9" value="9" />
-                      <Picker.Item label="Ten : 10" value="10" />
-                      <Picker.Item label="Eleven : 11" value="11" />
-                      <Picker.Item label="Twelve : 12" value="12" />
-
-                    </Picker>
-                  </View>
 
                 </View>
               
               {/* onPress={() => this.handle()} */}
 
-                <View style={{margin:10,marginTop:13}}>
+                {/* <View style={{margin:10,marginTop:13}}>
                     
                     {
                       ! this.state.accepted ?
@@ -224,95 +190,11 @@ handleRickshawPress = () =>{
                     }
                         
                     
-                </View>
+                </View> */}
 
 
           </View>
         </Dialog>
-
-{/* ---------------------------------------------------------------------------------------------------------------------------------------------------- */}
-
-        <Dialog
-            onDismiss={() => {this.setState({rickshaw:false})}}
-            width={0.85}
-            height={0.75}
-            visible={this.state.rickshaw}
-            rounded
-            actionsBordered
-            onTouchOutside  ={()=>{this.setState({rickshaw:false})}}>
-            <View style={{height:"58%",flexDirection:"column",justifyContent: "space-between",alignItems: "center", }} >
-                <View style ={styles.DialogBContainer}>
-                
-                    <View style={[styles.CircleShapeView]}>
-                    <FontAwesome5 name={"bell"} brand style={{paddingLeft:5 , fontSize: 80, color:'black'}} /> 
-
-                    </View>
-                </View>
-                <View>
-                    <Text style={[styles.status]} > Status</Text>
-                </View>
-                
-                {/* { this.state.findingRickshawMsg } */}
-
-                <View style={{alignItems:'center',marginBottom:15}}>
-                    <Text style={{textAlign:"center" , fontSize:18,fontWeight:'bold',color:'#000',marginTop:4}} >Mr.Ambilkar has accepted your request</Text>
-
-                    {
-                    this.state.accepted &&
-                    <View style={{marginTop:10}} >
-                      <Button onPress={ this.handleCall }>
-                        <Text style={{color:'white'}}>  Call the Driver  </Text>
-                      </Button>
-                    </View> 
-                    }
-
-                </View>
-
-                <Item floatingLabel style={{width:250}}>
-                <Label>Enter Destination</Label>
-                <Input  onChangeText={(text) => this.setState({"destination":text})}
-                        value={this.state["destination"]}/>
-                </Item>
-
-
-                <View style={{flexDirection:'row', marginTop:15}}>
-                  <View style={{flex:0.5 , alignItems:'center',paddingTop: 14,}}>
-                    <Text style={{fontSize:18,fontWeight:'bold',color:'#000'}}> No Of People: </Text>
-                  </View>
-
-                  <View style={{flex:0.5 }}>
-                    <Picker
-                      selectedValue={this.state.rickshawNumber}
-                      style={{height: 50, width: 130}}
-                      onValueChange={(itemValue, itemIndex) =>
-                        this.setState({rickshawNumber: itemValue})
-                      }>
-                      <Picker.Item label="One : 1" value="1" />
-                      <Picker.Item label="Two : 2" value="2" />
-                      <Picker.Item label="Three : 3" value="3" />
-                      <Picker.Item label="Four : 4" value="4" />
-                      <Picker.Item label="Five : 5" value="5" />
-        
-                    </Picker>
-                  </View>
-
-                </View>
-
-                <View style={{margin:10,marginTop:55}}>
-                {
-                      this.state.accepted ?
-                        <Button style={{paddingRight:22,backgroundColor:"#f1813b"}} rounded onPress={this.handleRickshawPress} >
-                        <Text style={{paddingLeft:23,fontSize:20 , textAlign:'center'}} > Find </Text>
-                        </Button> :
-                        <Button style={{paddingRight:22,backgroundColor:"#f1813b"}} rounded onPress={this.handle} >
-                        <Text style={{paddingLeft:23,fontSize:20 , textAlign:'center'}} > Pay </Text>
-                        </Button> 
-                    }
-                </View>
-
-            </View>
-        </Dialog>
-
 
 
       </View>

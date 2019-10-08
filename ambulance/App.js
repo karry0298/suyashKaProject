@@ -13,15 +13,11 @@ import {Button, Item, Input, Icon } from 'native-base';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { createStackNavigator, createAppContainer,  createDrawerNavigator, createSwitchNavigator ,createBottomTabNavigator } from "react-navigation";
 
-import Login from './components/Login';
-import LoginStudent from './components/LoginStudent';
 import LoginDriver from './components/LoginDriver';
 
 import SideBar from './components/SideBar';
 import ListTimeTable from './components/ListTimeTable';
 import DriverDummy from './components/DriverDummy';   //rename ur calss and folder path
-import DriverDummyNew from './components/DriverDummyNew'; //rename ur calss and folder path
-import PastRides from './components/PastRides';
 
 
 //-----------------------Drawer navigation Bar ---------------------------------------
@@ -37,17 +33,9 @@ const Mdn = createDrawerNavigator({
 
 
 const AppNavigator = createStackNavigator({
-  // login: { screen: Login }, 
-  // studentLogin :{screen:LoginStudent},
-  // driverdummynew:{screen:DriverDummyNew},       //rename  screen to ur calssName and put dhang ka label instead of driverdummynew
-  // pastRides:{screen:PastRides},
-  profile: Mdn,
+profile: Mdn,
   driverLogin:{screen:LoginDriver},
   driverdummy:{screen:DriverDummy},             //rename  screen to ur calssName and put dhang ka label instead of driverdummy
-  
-  // navigateRoute:{screen:NavigateRouteInput},
-  // navigateMaps:{screen:NavRouteMaps},
-  // filter : { screen : filterScreen },
   },
   {
   defaultNavigationOptions: ({navigation}) => {

@@ -21,14 +21,7 @@ export default class ListItem extends Component {
     
     return (    
       
-    // <Container style={{backgroundColor:'#e8f5fc'}}>
-    //     <Content>  
-    
-    //     <List 
-    //         dataArray={routes}
-    //         renderRow={data => {
-    //           return (
-
+  
                 <View style={{flex:1,}}>
                   
                   <View style={{flexDirection:'row' ,marginTop:7 , marginBottom: 7}}>
@@ -70,10 +63,6 @@ export default class ListItem extends Component {
                   />
             
                 </View>  
-      //         );
-      //       }}
-      //     />
-      //   </Content>
       // </Container>
 
 
