@@ -86,9 +86,9 @@ export default class studentNavigation extends Component {
     });
 }
 
-handleTumTumPress = () =>{
+handleTumTumPress = (destination) =>{
 
-  var destination = this.state.destination,
+  var destination = destination,
       noOfPass = this.state.tumtumNumber
   this.socket.emit('find' , { id : this.state.myId, destination, noOfPass, 
                   contactNo : this.state.contactNo, rating : this.state.rating , riderId : this.socket.id })
@@ -119,7 +119,8 @@ handleRickshawPress = () =>{
               dataArray={routes}
               renderRow={data => {
                 return (
-                  <ListItem source={data.source} distance={data.distance} special={data.special} desti={data.desti} name={data.name} emergency={data.emergency} />
+                  <ListItem source={data.source} distance={data.distance} special={data.special} desti={data.desti} name={data.name} emergency={data.emergency}
+                            buttonFunc={this.handleTumTumPress} />
                   );
                 }}
               />

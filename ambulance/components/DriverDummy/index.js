@@ -18,7 +18,7 @@ export default class DriverDummy extends Component {  //rename ur calss same as 
     this.socket = SocketIOClient(`${IPADDR}`);
     var navi = this.props.navigation;
     var user = navi.getParam('user', {
-      name : 'Abby Patil',
+      name : 'Suyash Salvi',
       contactNo : 95624723541,
       rating : 2
     })
@@ -33,7 +33,8 @@ export default class DriverDummy extends Component {  //rename ur calss same as 
       riderContact : '123456',
       riderRating : 5,
       contactNo : user.contactNo,
-      rating : user.rating
+      rating : user.rating,
+      destination : "Virar"
     };
 
     
@@ -44,7 +45,7 @@ export default class DriverDummy extends Component {  //rename ur calss same as 
     this.socket.on('request' , (msg)=>{
       console.log("geting requests");
       this.setState( {rider : msg.id , 
-        riderId : msg.riderId, riderContact : msg.contactNo, 
+        riderId : msg.riderId, riderContact : msg.contactNo, destination : msg.destination,
           riderRating : msg.rating , requested : true, seats : msg.noOfPass} )
     })
 
@@ -122,7 +123,7 @@ export default class DriverDummy extends Component {  //rename ur calss same as 
         show={showAlert}
         showProgress={false}
         title="Booking needed"
-        message={ this.state.rider + " wants to book for " + this.state.seats + " seats" }
+        message={ this.state.rider + " wants to book for " + this.state.destination }
         closeOnTouchOutside={true}
         closeOnHardwareBackPress={false}
         showCancelButton={true}

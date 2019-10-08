@@ -53,7 +53,7 @@ export default class ListItem extends Component {
                     
                     <View style={{flex:0.15 , justifyContent:'center' , alignItems: 'center', }}>
                       <Button rounded info style={{textAlign:'center',justifyContent:'center',width:60,marginRight:25 , alignSelf: 'center', backgroundColor:"#ff1744"}}
-                        onPress={() => this.props.navigation.navigate('driverLogin')}>
+                        onPress={() => this.props.buttonFunc(this.props.name)}>
                           <Text style={{color:'white'}} >BOOK</Text>
                       </Button>
                     </View>
